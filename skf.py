@@ -5,11 +5,11 @@ class Row(list):
         for number in numbers:
             self.append(int(number))
 
-    def add (self, row, factor=1):
+    def add(self, row, factor=1):
         for i in range(len(self)):
             self[i] = (self[i]+row[i]*factor)%3
 
-    def multiply (self, factor=2):
+    def multiply(self, factor=2):
         self.add(self, factor-1)
 
     def display(self):
@@ -77,10 +77,10 @@ class Matrix(list):
             count += 1
 
 
+if __name__ == '__main__':
 
-M = Matrix(open("matrix.txt", 'r'))
+    M = Matrix(open("matrix.txt", 'r'))
 
-
-print(M)
-M.skf(True)
+    print(M)
+    M.skf(True)
 
