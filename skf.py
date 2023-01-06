@@ -1,18 +1,21 @@
+from __future__ import annotations
+
+
 class Row(list):
 
-    def __init__(self, string):
+    def __init__(self, string: str):
         numbers = string.split()
         for number in numbers:
             self.append(int(number))
 
-    def add(self, row, factor=1):
+    def add(self, row: Row, factor: int = 1) -> None:
         for i in range(len(self)):
-            self[i] = (self[i]+row[i]*factor)%3
+            self[i] = (self[i]+row[i]*factor) % 3
 
-    def multiply(self, factor=2):
+    def multiply(self, factor: int = 2) -> None:
         self.add(self, factor-1)
 
-    def display(self):
+    def display(self) -> str:
         return ' '.join(str(self)[1:-1].split(', '))
 
 
@@ -25,25 +28,25 @@ class Matrix(list):
             self.height += 1
         self.width = len(self[0])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         ans = []
         for row in self:
             ans.append(row.display())
         return '\n'.join(ans)+'\n'
 
-    def replace_rows(self, i, j):
+    def replace_rows(self, i: int, j: int) -> None:
         self[i], self[j] = self[j], self[i]
 
-    def replace_cols(self, i, j):
+    def replace_cols(self, i: int, j: int) -> None:
         for row in self:
             row[i], row[j] = row[j], row[i]
 
-    def disp(self, message, condition):
+    def disp(self, message: str, condition: bool) -> None:
         if condition:
             print(message)
             print(self)
 
-    def skf(self, p=False):
+    def skf(self, p: bool = False) -> None:
         row, col = 0, 0
         count = 0
         while row < self.height and col < self.width:
@@ -52,7 +55,7 @@ class Matrix(list):
                     self[row].multiply()
                     self.disp("Удвоим строку №"+str(row+1), p)
                 for i in range(self.height):
-                    if self[i][col] and i!=row:
+                    if self[i][col] and i != row:
                         if self[i][col] == self[row][col]:
                             self[i].add(self[row], 2)
                             self.disp("Прибавим к строке №"+str(i+1)+" удвоенную строку №"+str(row+1), p)
