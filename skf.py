@@ -10,8 +10,17 @@ class Row(list):
         for i in range(len(self)):
             self[i] = (self[i]+row[i]*factor) % 3
 
-    def multiply(self, factor: int = 2) -> None:
-        self.add(self, factor-1)
+    def __iadd__(self, other: Row) -> Row:
+        for i in range(len(self)):
+            self[i] += other[i]
+            self[i] %= 3
+        return self
+
+    def __mul__(self, factor: int) -> Row:
+        for i in range(len(self)):
+            self[i] *= factor
+            self[i] %= 3
+        return self
 
     def __str__(self) -> str:
         return ' '.join(map(str, self))
@@ -48,15 +57,15 @@ class Matrix(list):
         while row < self.height and col < self.width:
             if self[row][col]:
                 if self[row][col] == 2:
-                    self[row].multiply()
+                    self[row] *= 2
                     self.disp("Удвоим строку №"+str(row+1), p)
                 for i in range(self.height):
                     if self[i][col] and i != row:
                         if self[i][col] == self[row][col]:
-                            self[i].add(self[row], 2)
+                            self[i] += self[row] * 2
                             self.disp("Прибавим к строке №"+str(i+1)+" удвоенную строку №"+str(row+1), p)
                         else:
-                            self[i].add(self[row])
+                            self[i] += self[row]
                             self.disp("Прибавим к строке №"+str(i+1)+" строку №"+str(row+1), p)
                 if row != col:
                     self.swap_cols(row, col)
