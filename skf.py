@@ -4,9 +4,7 @@ from __future__ import annotations
 class Row(list):
 
     def __init__(self, string: str):
-        numbers = string.split()
-        for number in numbers:
-            self.append(int(number))
+        super().__init__(map(int, string.split()))
 
     def add(self, row: Row, factor: int = 1) -> None:
         for i in range(len(self)):
@@ -21,11 +19,12 @@ class Row(list):
 
 class Matrix(list):
 
+    width: int
+    height: int
+
     def __init__(self, file):
-        self.height = 0
-        for r in file:
-            self.append(Row(r))
-            self.height += 1
+        super().__init__(map(Row, file))
+        self.height = len(self)
         self.width = len(self[0])
 
     def __repr__(self) -> str:
@@ -86,4 +85,3 @@ if __name__ == '__main__':
 
     print(M)
     M.skf(True)
-
