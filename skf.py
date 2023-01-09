@@ -13,8 +13,8 @@ class Row(list):
     def multiply(self, factor: int = 2) -> None:
         self.add(self, factor-1)
 
-    def display(self) -> str:
-        return ' '.join(str(self)[1:-1].split(', '))
+    def __str__(self) -> str:
+        return ' '.join(map(str, self))
 
 
 class Matrix(list):
@@ -27,16 +27,13 @@ class Matrix(list):
         self.height = len(self)
         self.width = len(self[0])
 
-    def __repr__(self) -> str:
-        ans = []
-        for row in self:
-            ans.append(row.display())
-        return '\n'.join(ans)+'\n'
+    def __str__(self) -> str:
+        return '\n'.join(map(str, self)) + '\n'
 
-    def replace_rows(self, i: int, j: int) -> None:
+    def swap_rows(self, i: int, j: int) -> None:
         self[i], self[j] = self[j], self[i]
 
-    def replace_cols(self, i: int, j: int) -> None:
+    def swap_cols(self, i: int, j: int) -> None:
         for row in self:
             row[i], row[j] = row[j], row[i]
 
@@ -62,7 +59,7 @@ class Matrix(list):
                             self[i].add(self[row])
                             self.disp("Прибавим к строке №"+str(i+1)+" строку №"+str(row+1), p)
                 if row != col:
-                    self.replace_cols(row, col)
+                    self.swap_cols(row, col)
                     self.disp("Поменяем местами столбцы №"+str(row+1)+" и №"+str(col+1), p)
                 row += 1
                 col += 1
@@ -70,7 +67,7 @@ class Matrix(list):
                 c = True
                 for i in range(row+1, self.height):
                     if self[i][col]:
-                        self.replace_rows(row, i)
+                        self.swap_rows(row, i)
                         self.disp("Поменяем местами строки №"+str(row+1)+" и №"+str(i+1), p)
                         c = False
                         break
