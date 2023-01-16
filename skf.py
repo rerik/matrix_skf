@@ -58,18 +58,18 @@ class Matrix(list):
             if self[row][col]:
                 if self[row][col] == 2:
                     self[row] *= 2
-                    self.disp("Удвоим строку №"+str(row+1), p)
+                    self.disp(f"Удвоим строку №{row+1}", p)
                 for i in range(self.height):
                     if self[i][col] and i != row:
                         if self[i][col] == self[row][col]:
                             self[i] += self[row] * 2
-                            self.disp("Прибавим к строке №"+str(i+1)+" удвоенную строку №"+str(row+1), p)
+                            self.disp(f"Прибавим к строке №{i+1} удвоенную строку №{row+1}", p)
                         else:
                             self[i] += self[row]
-                            self.disp("Прибавим к строке №"+str(i+1)+" строку №"+str(row+1), p)
+                            self.disp(f"Прибавим к строке №{i+1} строку №{row+1}", p)
                 if row != col:
                     self.swap_cols(row, col)
-                    self.disp("Поменяем местами столбцы №"+str(row+1)+" и №"+str(col+1), p)
+                    self.disp(f"Поменяем местами столбцы №{row+1} и №{col+1}", p)
                 row += 1
                 col += 1
             else:
@@ -77,7 +77,7 @@ class Matrix(list):
                 for i in range(row+1, self.height):
                     if self[i][col]:
                         self.swap_rows(row, i)
-                        self.disp("Поменяем местами строки №"+str(row+1)+" и №"+str(i+1), p)
+                        self.disp(f"Поменяем местами строки №{row+1} и №{i+1}", p)
                         c = False
                         break
                 if c:
